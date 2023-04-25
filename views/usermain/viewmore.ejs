@@ -1,0 +1,46 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+
+    td#desc{
+        word-break: break-all;
+    }
+
+
+</style>
+
+<body>
+    <div id="task">
+        <h1 class="text-center pt-5">Task Data</h1>
+        <br><br>
+        <div class="container">
+            <table class="table table-bordered table-stripped">
+                <tr>
+                    <td>Title</td>
+                    <td>
+                        <%=taskobj.title%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td id="desc">
+                        <%=taskobj.body%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <%=taskobj.status%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,54 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+
+        height: 100vh;
+    }
+
+    #submit{
+        background-color: beige;
+        height: 50px;
+        width: 150px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .input{
+        height: 40px;
+        width: 800px;
+        padding: 30px;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div id="login">
+        <h3 class="text-center pt-5">Update Task</h3>
+        <br><br>
+        <div class="container">
+            <form action="/usermain/update" method="post">
+                <input type="hidden" name="id" value="<%=taskobj.id%>" />
+                <table class="table table-bordered table-stripped">
+                    <tr>
+                        <td>Title</td>
+                        <td><input class="input" type="text" value="<%=taskobj.title%>" name="title" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td><input class="input" type="text" name="body" value="<%=taskobj.body%>" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input id="submit" type="submit" value="Delete Task" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>

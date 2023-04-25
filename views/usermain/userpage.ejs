@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>To-Do Console : <%=user%></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        .w3-quarter img {
+            margin-bottom: -6px;
+            cursor: pointer
+        }
+
+        .w3-quarter img:hover {
+            opacity: 0.6;
+            transition: 0.3s
+        }
+
+        .button{
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        #clicktitle{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="w3-light-grey">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
+        <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">HOME</a>
+        <a href="#alltasks" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ALL TASKS</a>
+        <a href="#addtasks" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ADD TASK</a>
+        <a href="/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">LOGOUT</a>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
+        <span class="w3-left w3-padding">WELCOME <%=user.toUpperCase() %></span>
+        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main w3-content" style="max-width:1600px;margin-top:83px">
+
+
+        <!-- Add Tasks Section -->
+        <div class="w3-container w3-light-grey w3-padding-32 w3-padding-large" id="addtasks">
+            <div class="w3-content" style="max-width:600px">
+                <h4 class="w3-center"><b>ADD TASK</b></h4>
+                <p>Enter the task details and click on add task to enter your task. Task will be displayed above.</p>
+                <form action="/usermain" method="post">
+                    <div class="w3-section">
+                        <label>Task Title</label>
+                        <input class="w3-input w3-border" type="text" name="title" maxlength="85" required>
+                    </div>
+                    <div class="w3-section">
+                        <label>Task Description</label>
+                        <input class="w3-input w3-border" type="text" name="body" required>
+                    </div>
+                    <button type="submit" class="w3-button w3-block w3-black w3-margin-bottom">Add Task</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- All Tasks Section -->
+        <div class="w3-container w3-dark-grey w3-center w3-text-light-grey w3-padding-32" id="alltasks">
+            <div class="w3-content" >
+                <h4 class="w3-padding-16">Your Tasks </h4>
+                <div class="w3-row-padding" style="margin:0 -16px">
+
+                    <%
+                        tasks.forEach((ele)=>{
+                    %>
+
+                    <div class="w3-third w3-margin-bottom">
+                        <ul class="w3-ul w3-white w3-center">
+
+                            <%
+                                if(ele.status == "pending"){
+                            %>
+                            <li class="w3-black w3-xlarge w3-padding-32" style="word-wrap: break-word;"><a id="clicktitle" href="/usermain/status/<%=ele.id%>"><%=ele.title%></a></li>
+                            <%
+                                }
+                                else{
+                            %>
+                            <li style="text-decoration: line-through" class="w3-black w3-xlarge w3-padding-32" style="word-wrap: break-word;"><a id="clicktitle" href="/usermain/status/<%=ele.id%>"><%=ele.title%></a></li>
+                            <%
+                                }
+                            %>
+                            <li class="w3-light-grey w3-padding-24">
+                                <div class="button">
+                                    <form action="/usermain/get/<%=ele.id%>" method="post"><input style="border-radius: 5px;" type="submit" class="w3-button w3-white w3-padding-medium" value="View More" /></form>
+                                    <form action="/usermain/update/<%=ele.id%>" method="post"><input style="border-radius: 5px;" type="submit" class="w3-button w3-white w3-padding-medium" value="Update" /></form>
+                                    <form action="/usermain/delete/<%=ele.id%>" method="post"><input style="border-radius: 5px;" type="submit" class="w3-button w3-white w3-padding-medium" value="Delete" /></form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <%
+                        });
+                    %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
